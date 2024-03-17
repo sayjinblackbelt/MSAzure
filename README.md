@@ -1,43 +1,72 @@
-# Previsão de Vendas
+# Previsão de Vendas com Azure Machine Learning e Flask
 
-Este projeto consiste na construção de um modelo de previsão de vendas utilizando técnicas de aprendizado de máquina. O objetivo é prever as vendas de um determinado produto com base em diversas variáveis, como preço, promoções, e outras características.
+Este projeto consiste na construção de um modelo de previsão de vendas utilizando o Azure Machine Learning para treinar o modelo e Flask para criar uma API que disponibiliza as previsões.
+Azure Machine Learning
 
-# Passos do Projeto
-## 1. Preparação dos Dados
+O Azure Machine Learning foi utilizado para treinar o modelo de previsão de vendas. Os passos realizados foram:
 
- Coleta dos dados de vendas e das características dos produtos.
- Pré-processamento dos dados para lidar com valores ausentes, outliers e codificação de variáveis categóricas.
- Divisão dos dados em conjuntos de treinamento e teste.
+## Preparação dos Dados:
+Os dados de vendas e características dos produtos foram carregados no Azure Machine Learning.
+Foram realizadas as etapas de pré-processamento, como tratamento de valores ausentes, codificação de variáveis categóricas e normalização dos dados, se necessário.
 
-## 2. Escolha do Modelo
+## Treinamento do Modelo:
+Um modelo de regressão, como Random Forest ou Regressão Linear, foi escolhido e treinado utilizando os dados preparados.
+O desempenho do modelo foi avaliado usando métricas como RMSE e R².
 
-Teste de vários algoritmos de regressão, como regressão linear, árvores de decisão e modelos de ensemble.
- Avaliação do desempenho de cada modelo utilizando métricas como RMSE (Root Mean Squared Error) e R² (coeficiente de determinação).
+## Registro do Modelo:
+O modelo treinado foi registrado no Azure Machine Learning para facilitar o acesso e implantação posteriormente.
 
-## 3. Treinamento do Modelo
+## Flask API
 
-Escolha do modelo com melhor desempenho nos dados de teste e treinamento utilizando o conjunto de treinamento completo.
-Ajuste dos hiperparâmetros do modelo utilizando técnicas como busca em grade ou otimização bayesiana.
+Uma API foi desenvolvida usando Flask para disponibilizar o modelo treinado. Os passos realizados foram:
 
-## 4. Validação do Modelo
+### Implementação da API:
+Utilizando Flask, foi criada uma API com um ponto de extremidade para receber os dados necessários para a previsão de vendas.
 
-Avaliação do desempenho do modelo treinado utilizando o conjunto de teste.
-Verificação se o modelo está generalizando bem para novos dados e se não está sofrendo de overfitting.
-
-## 5. Criação dos Pontos de Extremidade
-
-Implementação de pontos de extremidade para disponibilizar o modelo de previsão.
-Utilização de uma estrutura de API simples para permitir que os usuários enviem novos dados e obtenham previsões de vendas.
-
-## Estrutura do Repositório
-
-README.md: Este arquivo contendo a descrição do projeto e os passos realizados.
-modelo_previsao_vendas.ipynb: O notebook Jupyter contendo o código utilizado desde a preparação dos dados até o treinamento do modelo.    pontos_extremidade.json: Arquivo JSON contendo os pontos de extremidade da API para acessar o modelo de previsão.
+### Integração com o Modelo:
+O modelo treinado, registrado no Azure Machine Learning, foi integrado à API para realizar as previsões de vendas com base nos dados recebidos.
 
 ## Como Usar a API
 
-Para utilizar a API de previsão de vendas, envie uma solicitação POST para o ponto de extremidade fornecido no arquivo JSON. Certifique-se de enviar os dados no formato correto conforme especificado na documentação da API.
+Para utilizar a API de previsão de vendas, você pode enviar uma solicitação POST para o ponto de extremidade fornecido. Certifique-se de enviar os dados no formato correto conforme especificado na documentação da API.
+
+Exemplo de solicitação usando Python e a biblioteca requests:
+
+python
+
+import requests
+
+url = "http://endereco-da-api.com/prever_vendas"
+dados = {
+    "preco": 20.50,
+    "promocao": True,
+    "quantidade": 100,
+    "tipo_produto": "eletronico"
+}
+
+resposta = requests.post(url, json=dados)
+print(resposta.json())
+
+## Estrutura do Repositório
+
+    README.md: Este arquivo contendo a descrição do projeto e os passos realizados.
+    azure_ml_training.ipynb: O notebook Jupyter contendo o código utilizado para preparação dos dados e treinamento do modelo no Azure Machine Learning.
+    flask_api.py: O código-fonte da API Flask para disponibilizar o modelo de previsão.
+    requirements.txt: Um arquivo contendo as dependências necessárias para executar a API Flask.
+
+## Como Executar
+
+Para executar a API Flask localmente, siga as etapas abaixo:
+
+    Clone este repositório em sua máquina local.
+    Instale as dependências necessárias executando pip install -r requirements.txt.
+    Execute o arquivo flask_api.py com o comando python flask_api.py.
+    A API estará disponível no endereço http://localhost:5000.
 
 ## Contribuições
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
+## Licença
+
+Este projeto está licenciado sob a MIT License.
+
