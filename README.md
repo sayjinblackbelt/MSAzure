@@ -1,111 +1,105 @@
 # Previsão de Vendas com Azure Machine Learning e Flask
 
-Projeto de estudo e demonstração de **Machine Learning aplicado à previsão de vendas**, combinando **Azure Machine Learning** para preparação e treinamento do modelo com **Flask** para disponibilização das previsões por meio de uma API REST.
+Projeto de estudo e demonstração de **Machine Learning aplicado à previsão de vendas**, combinando Python, scikit-learn, Azure Machine Learning e Flask.
 
 ## Objetivo
 
 Construir um fluxo completo de Machine Learning capaz de:
 
-1. Preparar dados históricos de vendas e características dos produtos;
-2. Treinar e avaliar um modelo de regressão;
-3. Registrar o modelo no Azure Machine Learning;
-4. Disponibilizar o modelo por meio de uma API Flask;
-5. Receber dados de entrada e retornar uma previsão de vendas.
+1. Preparar dados históricos de vendas;
+2. Aplicar pré-processamento às variáveis;
+3. Treinar e avaliar um modelo de regressão;
+4. Salvar e versionar o modelo treinado;
+5. Disponibilizar previsões por meio de uma API REST com Flask;
+6. Preparar o projeto para posterior execução no Azure Machine Learning.
 
 ## Arquitetura
 
 ```text
-Dados de vendas
-      │
-      ▼
-Preparação dos dados
-      │
-      ▼
-Azure Machine Learning
-      │
-      ├── Treinamento
-      ├── Avaliação
-      └── Registro do modelo
-              │
-              ▼
-         Modelo treinado
-              │
-              ▼
-          Flask API
-              │
-              ▼
-       Requisição POST
-              │
-              ▼
-       Previsão de vendas
-```
-
-## Azure Machine Learning
-
-O Azure Machine Learning é utilizado como ambiente para preparação dos dados, treinamento, avaliação e registro do modelo.
-
-### Preparação dos Dados
-
-As etapas de pré-processamento podem incluir tratamento de valores ausentes, identificação de inconsistências, codificação de variáveis categóricas, normalização ou padronização quando necessária e separação dos dados em conjuntos de treinamento e teste.
-
-### Treinamento do Modelo
-
-O projeto pode utilizar modelos de regressão adequados ao conjunto de dados, como **Regressão Linear** e **Random Forest Regressor**.
-
-O desempenho deve ser analisado utilizando métricas apropriadas, como **RMSE (Root Mean Squared Error)** e **R² (Coeficiente de Determinação)**.
-
-### Registro do Modelo
-
-Após o treinamento e a avaliação, o modelo pode ser registrado no Azure Machine Learning para facilitar seu versionamento, gerenciamento e posterior implantação.
-
-## Flask API
-
-A API Flask funciona como camada de acesso ao modelo, permitindo que aplicações externas enviem os dados necessários para uma previsão.
-
-### Endpoint
-
-```text
+Dataset CSV
+    │
+    ▼
+Pré-processamento
+    │
+    ▼
+Treinamento / Avaliação
+    │
+    ▼
+Modelo scikit-learn
+    │
+    ├── Execução local
+    │
+    └── Azure Machine Learning
+    │
+    ▼
+Modelo serializado
+    │
+    ▼
+Flask API
+    │
+    ▼
 POST /prever_vendas
+    │
+    ▼
+Previsão
 ```
-
-### Exemplo de Requisição
-
-```python
-import requests
-
-url = "http://localhost:5000/prever_vendas"
-
-dados = {
-    "preco": 20.50,
-    "promocao": True,
-    "quantidade": 100,
-    "tipo_produto": "eletronico"
-}
-
-resposta = requests.post(url, json=dados)
-print(resposta.json())
-```
-
-> Os campos apresentados são um exemplo de contrato da API. Eles devem ser ajustados de acordo com as variáveis efetivamente utilizadas pelo modelo treinado.
 
 ## Estrutura do Repositório
 
 ```text
 MSAzure/
 ├── README.md
-├── azure_ml_training.ipynb
+├── .gitignore
+├── azure_ml_training.py
 ├── flask_api.py
-└── requirements.txt
+├── requirements.txt
+├── data/
+│   └── vendas.csv
+└── model/
+    └── vendas_model.pkl   # gerado localmente, não versionado
 ```
 
 | Arquivo | Descrição |
 |---|---|
 | `README.md` | Documentação do projeto. |
-| `azure_ml_training.ipynb` | Notebook para preparação dos dados, treinamento e avaliação do modelo. |
-| `flask_api.py` | Código da API Flask responsável por disponibilizar as previsões. |
-| `requirements.txt` | Dependências Python necessárias para execução do projeto. |
+| `azure_ml_training.py` | Pipeline de preparação, treinamento e avaliação do modelo. |
+| `flask_api.py` | API Flask para disponibilizar as previsões. |
+| `requirements.txt` | Dependências Python. |
+| `data/vendas.csv` | Dataset demonstrativo utilizado no treinamento. |
+| `model/vendas_model.pkl` | Modelo serializado gerado após o treinamento. |
+| `.gitignore` | Arquivos locais que não devem ser versionados. |
 
-## Como Executar Localmente
+## Dados
+
+O dataset demonstrativo possui as seguintes variáveis:
+
+- `preco`: preço do produto;
+- `promocao`: indica se o produto está em promoção;
+- `quantidade`: quantidade disponível/ofertada;
+- `tipo_produto`: categoria do produto;
+- `vendas`: variável-alvo que o modelo deve prever.
+
+Os dados presentes no repositório são **demonstrativos** e têm finalidade educacional. Para um projeto real, o dataset deve ser substituído por dados históricos confiáveis e adequadamente documentados.
+
+## Modelo de Machine Learning
+
+O pipeline utiliza `scikit-learn` e `RandomForestRegressor`.
+
+O pré-processamento inclui:
+
+- imputação de valores ausentes;
+- tratamento de variáveis numéricas;
+- codificação One-Hot da variável categórica `tipo_produto`;
+- divisão entre dados de treinamento e teste.
+
+As métricas utilizadas são:
+
+- **RMSE** — Root Mean Squared Error;
+- **R²** — Coeficiente de Determinação.
+
+O pipeline completo é serializado com `joblib`, permitindo que a API Flask utilize exatamente o mesmo pré-processamento aplicado durante o treinamento.
+
+## Treinamento Local
 
 ### 1. Clonar o repositório
 
@@ -114,7 +108,7 @@ git clone https://github.com/sayjinblackbelt/MSAzure.git
 cd MSAzure
 ```
 
-### 2. Criar um ambiente virtual
+### 2. Criar ambiente virtual
 
 ```bash
 python -m venv .venv
@@ -132,51 +126,145 @@ No Linux/macOS:
 source .venv/bin/activate
 ```
 
-### 3. Instalar as dependências
+### 3. Instalar dependências
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Executar a API
+### 4. Treinar o modelo
+
+```bash
+python azure_ml_training.py
+```
+
+Ao final, o script apresenta RMSE e R² e gera:
+
+```text
+model/vendas_model.pkl
+```
+
+## Flask API
+
+Depois de treinar o modelo, execute:
 
 ```bash
 python flask_api.py
 ```
 
-A API ficará disponível, conforme a configuração do Flask, em `http://localhost:5000`.
+A API estará disponível em:
+
+```text
+http://localhost:5000
+```
+
+### Endpoint de saúde
+
+```text
+GET /
+```
+
+### Endpoint de previsão
+
+```text
+POST /prever_vendas
+```
+
+Exemplo de requisição:
+
+```python
+import requests
+
+url = "http://localhost:5000/prever_vendas"
+
+dados = {
+    "preco": 20.50,
+    "promocao": True,
+    "quantidade": 100,
+    "tipo_produto": "eletronico"
+}
+
+resposta = requests.post(url, json=dados)
+print(resposta.json())
+```
+
+Resposta esperada:
+
+```json
+{
+    "previsao_vendas": 80.0
+}
+```
+
+O valor acima é apenas ilustrativo; a previsão real depende do modelo treinado.
+
+## Azure Machine Learning
+
+A implementação atual possui um pipeline Python que pode servir como base para execução em um ambiente Azure Machine Learning.
+
+O próximo estágio da integração deverá contemplar:
+
+1. criação/configuração do workspace;
+2. conexão do ambiente Python ao Azure ML;
+3. upload ou registro do dataset;
+4. execução do treinamento como job;
+5. registro do modelo no Azure ML Model Registry;
+6. definição de um ambiente de execução reproduzível;
+7. implantação do modelo como endpoint gerenciado ou integração com a API.
+
+> Importante: credenciais, chaves, connection strings e outros segredos não devem ser armazenados no GitHub.
+
+## Teste rápido da API
+
+Com a API em execução:
+
+```bash
+curl -X POST http://localhost:5000/prever_vendas ^
+  -H "Content-Type: application/json" ^
+  -d "{\"preco\":20.50,\"promocao\":true,\"quantidade\":100,\"tipo_produto\":\"eletronico\"}"
+```
+
+No Linux/macOS, use `\` no lugar de `^` para continuação de linha.
 
 ## Tecnologias
 
-- Python
+- Python 3
+- pandas
+- NumPy
+- scikit-learn
+- joblib
+- Flask
+- requests
 - Jupyter Notebook
 - Azure Machine Learning
-- Flask
-- scikit-learn
-- pandas
-- requests
 
 ## Status
 
-**Em desenvolvimento.**
+**Em desenvolvimento — pipeline local funcional e integração com Azure ML em evolução.**
 
-O repositório documenta a proposta e a estrutura do projeto. A implementação efetiva do notebook, do modelo treinado, da API e do processo de implantação deve ser mantida versionada no próprio repositório conforme o desenvolvimento avançar.
+### Concluído
 
-## Próximas Etapas
+- [x] Dataset demonstrativo;
+- [x] Pipeline de pré-processamento;
+- [x] Modelo Random Forest;
+- [x] Avaliação com RMSE e R²;
+- [x] Serialização do pipeline com joblib;
+- [x] API Flask;
+- [x] Validação básica das entradas da API;
+- [x] Documentação inicial;
+- [x] `.gitignore`.
 
-- [ ] Adicionar o notebook de treinamento;
-- [ ] Definir e versionar o conjunto de dados utilizado;
-- [ ] Implementar o pipeline de pré-processamento;
-- [ ] Treinar e comparar modelos de regressão;
-- [ ] Registrar o modelo no Azure Machine Learning;
-- [ ] Implementar a API Flask;
-- [ ] Criar testes para o endpoint de previsão;
-- [ ] Documentar o contrato da API;
-- [ ] Avaliar implantação do serviço.
+### Próximas etapas
 
-## Contribuições
-
-Contribuições são bem-vindas. Sugestões, correções e melhorias podem ser propostas por meio de **Issues** e **Pull Requests**.
+- [ ] Criar notebook `.ipynb` equivalente ao pipeline;
+- [ ] Criar testes automatizados da API;
+- [ ] Comparar Random Forest com Regressão Linear;
+- [ ] Melhorar o dataset e aumentar o volume de dados;
+- [ ] Executar treinamento no Azure Machine Learning;
+- [ ] Registrar o modelo no Azure ML;
+- [ ] Criar endpoint de inferência no Azure;
+- [ ] Documentar métricas e experimentos;
+- [ ] Criar CI/CD posteriormente.
 
 ## Licença
 
