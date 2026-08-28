@@ -34,11 +34,12 @@ Registrar as páginas web produzidas individualmente pelos educandos durante a a
 | Murilo Lira Damasio | Café Lira | https://cafe-lira.b12sites.com/ | Link registrado em 28/08/2026 às 10:20 |
 | Vinícius Gabriel Passos | Free Fire — Portfolio Design | https://free-fire5-portfolio-design.b12sites.com/index#hero | Primeira versão registrada às 10:20 |
 | Vinícius Gabriel Passos | Free Fire — Portfolio Design | https://free-fire-portfolio-design.b12sites.com/index#hero | Segunda versão registrada às 10:24 |
-| Ana Lara Pereira Damasio | — | — | Registro recebido sem link até o momento |
+| Ana Lara Pereira Damasio | De Volta aos Boxes — TTMB | https://de-volta-aos-boxes-ttmb.b12sites.com | Link registrado em 28/08/2026 às 10:27 |
 
 ## Observações — Manhã
 
 - Vinícius Gabriel Passos possui duas URLs registradas, correspondentes a duas versões do projeto. Ambas devem ser preservadas até a definição da versão final.
+- Ana Lara Pereira Damasio teve seu link atualizado após correção do registro inicial.
 - O registro não inclui imagens de perfil enviadas no ambiente de aula.
 - Os links são páginas externas publicadas no B12; este repositório registra os resultados e o processo, não hospeda os sites.
 
