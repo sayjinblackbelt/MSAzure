@@ -1,7 +1,14 @@
 # Projetos de Páginas Web — B12
 
 **Data:** 28/08/2026  
-**Contexto:** Atividade prática de Design — ChatGPT → B12 → Portfólio
+**Contexto:** Atividade prática — ChatGPT → B12 → Portfólio
+
+## Organização das turmas
+
+Os projetos desta atividade foram realizados por turmas diferentes no **Campus 1**. Os registros devem permanecer separados para evitar mistura entre os resultados.
+
+- **Campus 1 — Manhã:** turma de Design.
+- **Campus 1 — Tarde:** turma de PMT.
 
 ## Objetivo
 
@@ -17,7 +24,9 @@ Registrar as páginas web produzidas individualmente pelos educandos durante a a
 6. Publicação da página.
 7. Registro do link no portfólio.
 
-## Páginas registradas
+# Campus 1 — Manhã
+
+**Turma:** Design
 
 | Educando | Projeto | Link | Observação |
 |---|---|---|---|
@@ -27,12 +36,20 @@ Registrar as páginas web produzidas individualmente pelos educandos durante a a
 | Vinícius Gabriel Passos | Free Fire — Portfolio Design | https://free-fire-portfolio-design.b12sites.com/index#hero | Segunda versão registrada às 10:24 |
 | Ana Lara Pereira Damasio | — | — | Registro recebido sem link até o momento |
 
-## Observações
+## Observações — Manhã
 
 - Vinícius Gabriel Passos possui duas URLs registradas, correspondentes a duas versões do projeto. Ambas devem ser preservadas até a definição da versão final.
-- O registro não inclui as imagens de perfil enviadas no ambiente de aula, pois elas não são necessárias para a documentação do projeto.
-- Novos projetos devem ser adicionados à tabela conforme os educandos enviarem seus links.
+- O registro não inclui imagens de perfil enviadas no ambiente de aula.
 - Os links são páginas externas publicadas no B12; este repositório registra os resultados e o processo, não hospeda os sites.
+
+# Campus 1 — Tarde
+
+**Turma:** PMT
+
+| Educando | Projeto | Link | Observação |
+|---|---|---|---|
+| Ana Clara Justino Saraiva | Linha Capilar para Mulheres | https://linha-capilar-para-mulheres.b12sites.com/ | Link registrado em 28/08/2026 às 15:14 |
+| Yasmim Dos Santos | Loja de Skincare | https://loja-de-skincare.b12sites.com/ | Link registrado em 28/08/2026 às 15:16 |
 
 ## Critérios mínimos da atividade
 
@@ -43,3 +60,12 @@ Registrar as páginas web produzidas individualmente pelos educandos durante a a
 - Identidade visual minimamente coerente.
 - Página publicada.
 - Link registrado para uso no portfólio.
+
+## Próximos registros
+
+Novos projetos devem ser adicionados sempre na seção correspondente à turma:
+
+- **Campus 1 — Manhã / Design**
+- **Campus 1 — Tarde / PMT**
+
+Isso permitirá acompanhar a produção de cada turma separadamente e comparar a evolução das atividades ao longo do curso.
