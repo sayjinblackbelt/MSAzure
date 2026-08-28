@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 import os
 import joblib
-import numpy as np
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -41,7 +41,7 @@ def prever_vendas():
 
     try:
         preco = float(dados["preco"])
-        promocao = int(bool(dados["promocao"]))
+        promocao = bool(dados["promocao"])
         quantidade = float(dados["quantidade"])
         tipo_produto = str(dados["tipo_produto"])
     except (TypeError, ValueError):
@@ -57,9 +57,15 @@ def prever_vendas():
         }), 503
 
     try:
-        # O modelo deve receber as mesmas variáveis e transformações
-        # utilizadas durante o treinamento.
-        entrada = np.array([[preco, promocao, quantidade, tipo_produto]], dtype=object)
+        # O pipeline foi treinado com um DataFrame e seleciona as colunas
+        # pelo nome. A API precisa reproduzir esse formato na inferência.
+        entrada = pd.DataFrame([{
+            "preco": preco,
+            "promocao": promocao,
+            "quantidade": quantidade,
+            "tipo_produto": tipo_produto
+        }])
+
         previsao = model.predict(entrada)[0]
 
         return jsonify({
