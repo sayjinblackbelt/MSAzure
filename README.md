@@ -269,3 +269,12 @@ No Linux/macOS, use `\` no lugar de `^` para continuação de linha.
 ## Licença
 
 Este projeto está licenciado sob a **MIT License**.
+
+---
+
+## Author
+
+**Filipe G Morais**
+
+GitHub: https://github.com/sayjinblackbelt  
+Repository: https://github.com/sayjinblackbelt/MSAzure
